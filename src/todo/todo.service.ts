@@ -15,7 +15,7 @@ export class TodoService {
   ) {}
 
   async getAllTodo(page: GetTodoInput, userId: string) {
-    const skip = Number(Number(page) - 1) * 10;
+    const skip = Number(Number(page < 0 ? 1 : page) - 1) * 10;
     const data = await this.todoModel
       .find({
         created_by: userId,
@@ -28,7 +28,7 @@ export class TodoService {
       .skip(skip)
       .limit(10)
       .sort({ created_at: 1 });
-    const count = await this.todoModel.find({}).count();
+    const count = await this.todoModel.find({ created_by: userId }).count();
     return {
       data,
       count,
