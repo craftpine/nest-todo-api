@@ -6,9 +6,7 @@ import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://admin1:admin123@mflix.yhfoo.mongodb.net/nestjs-todo?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRoot('mongodb://localhost:27017/test'),
     ConfigModule.forRoot({
       isGlobal: true,
     }),

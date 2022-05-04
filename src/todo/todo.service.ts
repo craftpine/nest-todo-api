@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Todo, TodoDocument } from './todo.schema';
 import { User } from 'src/user/user.schema';
+import { UpdateTodoInput } from './dto/update-todo.input';
 
 @Injectable()
 export class TodoService {
@@ -12,10 +13,21 @@ export class TodoService {
   ) {}
 
   async getAllTodo() {
-    return this.todoModel.find({}).populate('created_by', null, User.name);
+    return this.todoModel.find({}).populate({
+      path: 'created_by',
+      model: User.name,
+      select: ['username', '_id'],
+    });
   }
 
   async createTodo(createTodoInput: CreateTodoInput) {
     return this.todoModel.create(createTodoInput);
+  }
+
+  async updateTodo(udpateTodoInput: UpdateTodoInput) {
+    return this.todoModel.findOneAndUpdate(
+      { _id: udpateTodoInput._id },
+      { ...udpateTodoInput },
+    );
   }
 }

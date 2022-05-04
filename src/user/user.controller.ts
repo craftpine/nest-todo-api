@@ -28,4 +28,9 @@ export class UserController {
   async signIn(@Body() dto: SignUpInput) {
     return this.userService.login(dto);
   }
+
+  @Post('reissue')
+  async reissueAccessToken(@Body() dto: { refreshToken: string }) {
+    return this.userService.reIssueAccessToken(dto.refreshToken);
+  }
 }
