@@ -41,7 +41,8 @@ export class TodoController {
 
   @Patch()
   async updateTodo(@Body() dto: UpdateTodoInput) {
-    return this.todoService.updateTodo(dto);
+    const data = await this.todoService.updateTodo(dto);
+    return dto;
   }
 
   @Delete('/:id')

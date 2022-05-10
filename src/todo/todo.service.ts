@@ -40,7 +40,7 @@ export class TodoService {
   }
 
   async updateTodo(udpateTodoInput: UpdateTodoInput) {
-    return this.todoModel.findOneAndUpdate(
+    return await this.todoModel.findOneAndUpdate(
       { _id: udpateTodoInput._id },
       { ...udpateTodoInput },
     );

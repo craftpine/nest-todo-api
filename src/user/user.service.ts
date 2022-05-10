@@ -68,6 +68,7 @@ export class UserService {
           password: hash,
         });
         // return this.signToken(newUser._id, newUser.username);
+        delete newUser.password;
         return newUser;
       }
     } catch (error) {
